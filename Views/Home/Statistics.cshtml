@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Moot.Models.LibraryViewModels.OrderGroup>
+@{
+	ViewData["Title"] = "Ordered Properties Statistics";
+}
+<h2>Ordered Properties Statistics</h2>
+<table class="table">
+	<tr>
+		<th>
+			Offer Date
+		</th>
+		<th>
+			Offerd Properties
+		</th>
+	</tr>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.OfferDate)
+			</td>
+			<td>
+				@item.PropertyCount
+			</td>
+		</tr>
+	}
+</table>

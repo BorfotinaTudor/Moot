@@ -1,0 +1,44 @@
+﻿@model Moot.Models.Owner
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<h1>@Model.FullName</h1>
+
+<div>
+    <h4>Published Properties:</h4>
+    @if (Model.Properties.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Property Type</th>
+                    <th>Price</th>
+                    <th>Neighborhood</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var property in Model.Properties)
+                {
+                    <tr>
+                        <td>@property.PropertyType</td>
+                        <td>@($"{property.Price:F2} €")</td>
+                        <td>@property.Neighborhood.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No Properties available for this owner.</p>
+    }
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

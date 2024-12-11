@@ -1,0 +1,108 @@
+﻿@model Moot.Models.LibraryViewModels.AgentIndexData
+
+@{
+	ViewData["Title"] = "Publishers";
+}
+<h2>Agents</h2>
+<p>
+	<a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Agent Name</th>
+			<th>Title</th>
+			<th>Properties</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Agents)
+		{
+			string selectedRow = "";
+			if (item.ID == (int?)ViewData["AgentID"])
+			{
+				selectedRow = "success";
+			}
+			<tr class="@selectedRow">
+				<td>
+					@Html.DisplayFor(modelItem => item.AgentName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Title)
+				</td>
+				<td>
+					@foreach (var property in item.PublishedProperties)
+					{
+						<a asp-action="Details" asp-controller="Properties" asp-route-id="@property.Property.ID">
+							@property.Property.ID
+						</a>
+						@: @property.Property.PropertyType <br />
+					}
+				</td>
+				<td>
+					<a asp-action="Index" asp-route-id="@item.ID">Select</a> |
+					<a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+					<a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+					<a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+@if (Model.Properties != null)
+{
+	<h3>Property Published by Selected Agent</h3>
+	<table class="table">
+		<tr>
+			<th></th>
+			<th>Title</th>
+			<th>Author</th>
+			<th>Price</th>
+		</tr>
+		@foreach (var item in Model.Properties)
+		{
+			string selectedRow = "";
+			if (item.ID == (int?)ViewData["BookID"])
+			{
+				selectedRow = "success";
+			}
+			<tr class="@selectedRow">
+				<td>
+					@Html.ActionLink("Select", "Index", new { propertyID = item.ID })
+				</td>
+				<td>
+					@item.PropertyType
+				</td>
+				<td>
+					@item.Owner
+				</td>
+				<td>
+					@($"{item.Price:F2} €")
+				</td>
+			</tr>
+		}
+	</table>
+}
+@if (Model.Offers != null)
+{
+	<h3>Clients that have offered the Selected Property</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Offer Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var order in Model.Offers)
+			{
+				<tr>
+					<td>@order.Client.Name</td>
+					<td>@(order.OfferDate.HasValue ? order.OfferDate.Value.ToString("dd/MM/yyyy HH:mm:ss") : "No Date")</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+}

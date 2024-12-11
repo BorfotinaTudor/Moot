@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Starlight Real Estate</h1>
+    <p>Cheia Viitorului Tau</a></p>
+</div>
+
+<div class="text-center mt-4">
+    <button onclick="location.href='@Url.Action("Index", "Properties")'" class="btn btn-primary m-2">Properties</button>
+    <button onclick="location.href='@Url.Action("Index", "Owners")'" class="btn btn-secondary m-2">Owners</button>
+    <button onclick="location.href='@Url.Action("Home", "Statistics")'" class="btn btn-success m-2">Statistics</button>
+    <button onclick="location.href='@Url.Action("Index", "Agents")'" class="btn btn-info m-2">Agents</button>
+    <button onclick="location.href='@Url.Action("Index", "Chat")'" class="btn btn-warning m-2">Chat</button>
+</div>
